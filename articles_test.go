@@ -1,6 +1,7 @@
 package dev
 
 import (
+	"math"
 	"strings"
 	"testing"
 )
@@ -92,5 +93,35 @@ func TestCreateArticle(t *testing.T) {
 
 	if article.Title != want {
 		t.Errorf("Expected article title to be %s, got %s", want, got)
+	}
+}
+
+func TestGetPublishedArticlesSorted(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articles, err := c.GetPublishedArticlesSorted(
+		ArticleQueryParams{
+			Page:    1,
+			PerPage: 10,
+		},
+	)
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	t1, _ := ParseUTCDate(articles[0].PublishedAt)
+	t2, err := ParseUTCDate(articles[1].PublishedAt)
+	if err != nil {
+		t.Errorf("Error parsing UTC date: %v", err.Error())
+	}
+
+	diff := t1.Sub(t2).Seconds()
+
+	if math.Signbit(diff) {
+		t.Errorf("Expected result to contain articles ordered by descending publish date")
 	}
 }
