@@ -15,6 +15,8 @@ type Article struct {
 	CoverImage             string              `json:"cover_image,omitempty"`
 	ReadablePublishDate    string              `json:"readable_publish_date"`
 	SocialImage            string              `json:"social_image"`
+	BodyMarkdown           string              `json:"body_markdown"`
+	BodyHTML               string              `json:"body_html"`
 	TagList                []string            `json:"tag_list"`
 	Tags                   string              `json:"tags"`
 	Slug                   string              `json:"slug"`
@@ -175,6 +177,34 @@ func (c *Client) GetPublishedArticleByID(articleID string) (*ArticleVariant, err
 	path := fmt.Sprintf("/articles/%s", articleID)
 
 	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	article := new(ArticleVariant)
+
+	if err := c.SendHttpRequest(req, &article); err != nil {
+		return nil, err
+	}
+
+	return article, nil
+}
+
+// UpdateArticle allows the client to update an existing article
+// This method is rate-limited (30req/30sec)
+func (c *Client) UpdateArticle(articleID string, payload ArticleBodySchema, filepath interface{}) (*ArticleVariant, error) {
+	path := fmt.Sprintf("/articles/%s", articleID)
+
+	if filepath != nil {
+		content, err := ParseMarkdownFile(filepath.(string))
+		if err != nil {
+			return nil, err
+		}
+
+		payload.Article.BodyMarkdown = content
+	}
+
+	req, err := c.NewRequest(context.Background(), "PUT", path, payload)
 	if err != nil {
 		return nil, err
 	}
