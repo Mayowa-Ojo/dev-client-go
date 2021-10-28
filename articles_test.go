@@ -151,3 +151,34 @@ func TestGetPublishedArticleByID(t *testing.T) {
 		t.Errorf("Expected result to contain articles ordered by descending publish date")
 	}
 }
+
+func TestUpdateArticle(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articleID := "880104"
+
+	payload := ArticleBodySchema{}
+	payload.Article.Title = "The crust of structs in Go 3"
+	payload.Article.BodyMarkdown = ""
+	payload.Article.Published = false
+	payload.Article.Tags = []string{"golang", "discuss"}
+
+	article, err := c.UpdateArticle(articleID, payload, "article_sample.md")
+	if err != nil {
+		t.Errorf("Error trying to create article: %s", err.Error())
+	}
+
+	want := "The crust of structs in Go 3"
+	got := article.Title
+
+	if got != want {
+		t.Errorf("Expected article title to be '%s', got '%s'", want, got)
+	}
+
+	if len(article.Tags) != 2 {
+		t.Errorf("Expected article to have two tags, got '%d'", len(article.Tags))
+	}
+}
