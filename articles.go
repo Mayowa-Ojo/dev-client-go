@@ -34,6 +34,26 @@ type Article struct {
 	ReadingTimeMinutes     int32    `json:"reading_time_minutes"`
 }
 
+type ArticleVariant struct {
+	Article
+	Tags    []string `json:"tags"`
+	TagList string   `json:"tag_list"`
+}
+
+type ArticleBodySchema struct {
+	Article struct {
+		Title          string   `json:"title"`
+		BodyMarkdown   string   `json:"body_markdown"`
+		Published      bool     `json:"published"`
+		Series         string   `json:"series"`
+		MainImage      string   `json:"main_image"`
+		CanonicalURL   string   `json:"canonical_url"`
+		Description    string   `json:"description"`
+		Tags           []string `json:"tags"`
+		OrganizationID int32    `json:"organization_id"`
+	} `json:"article"`
+}
+
 type State string
 
 const (
@@ -75,4 +95,33 @@ func (c *Client) GetPublishedArticles(q ArticleQueryParams) ([]Article, error) {
 	}
 
 	return articles, nil
+}
+
+// CreateArticle allows the client to create a new article
+// @filepath - article body can be set on the payload as a string
+//            or passed via the path to a markdown file
+func (c *Client) CreateArticle(payload ArticleBodySchema, filepath interface{}) (*ArticleVariant, error) {
+	path := "/articles"
+
+	if filepath != nil {
+		content, err := ParseMarkdownFile(filepath.(string))
+		if err != nil {
+			return nil, err
+		}
+
+		payload.Article.BodyMarkdown = content
+	}
+
+	req, err := c.NewRequest(context.Background(), "POST", path, payload)
+	if err != nil {
+		return nil, err
+	}
+
+	article := new(ArticleVariant)
+
+	if err := c.SendHttpRequest(req, &article); err != nil {
+		return nil, err
+	}
+
+	return article, nil
 }
