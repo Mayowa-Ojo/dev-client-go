@@ -168,3 +168,22 @@ func (c *Client) GetPublishedArticlesSorted(q ArticleQueryParams) ([]Article, er
 
 	return articles, nil
 }
+
+// GetPublishedArticleByID allows the client to retrieve a single published
+// article by the specified ID
+func (c *Client) GetPublishedArticleByID(articleID string) (*ArticleVariant, error) {
+	path := fmt.Sprintf("/articles/%s", articleID)
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	article := new(ArticleVariant)
+
+	if err := c.SendHttpRequest(req, &article); err != nil {
+		return nil, err
+	}
+
+	return article, nil
+}
