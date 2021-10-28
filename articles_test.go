@@ -2,6 +2,7 @@ package dev
 
 import (
 	"math"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -122,6 +123,31 @@ func TestGetPublishedArticlesSorted(t *testing.T) {
 	diff := t1.Sub(t2).Seconds()
 
 	if math.Signbit(diff) {
+		t.Errorf("Expected result to contain articles ordered by descending publish date")
+	}
+}
+
+func TestGetPublishedArticleByID(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articleID := "866987"
+
+	article, err := c.GetPublishedArticleByID(articleID)
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	want, err := strconv.Atoi(articleID)
+	if err != nil {
+		t.Errorf("Error converting string to int: %s", err.Error())
+	}
+	got := article.ID
+
+	if int32(want) != got {
 		t.Errorf("Expected result to contain articles ordered by descending publish date")
 	}
 }
