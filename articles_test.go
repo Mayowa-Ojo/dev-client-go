@@ -2,6 +2,7 @@ package dev
 
 import (
 	"math"
+	"os"
 	"strconv"
 	"strings"
 	"testing"
@@ -138,7 +139,7 @@ func TestGetPublishedArticleByID(t *testing.T) {
 	article, err := c.GetPublishedArticleByID(articleID)
 
 	if err != nil {
-		t.Errorf("Error fetching articles: %s", err.Error())
+		t.Errorf("Error fetching article: %s", err.Error())
 	}
 
 	want, err := strconv.Atoi(articleID)
@@ -168,7 +169,7 @@ func TestUpdateArticle(t *testing.T) {
 
 	article, err := c.UpdateArticle(articleID, payload, "article_sample.md")
 	if err != nil {
-		t.Errorf("Error trying to create article: %s", err.Error())
+		t.Errorf("Error trying to update article: %s", err.Error())
 	}
 
 	want := "The crust of structs in Go 3"
@@ -180,5 +181,53 @@ func TestUpdateArticle(t *testing.T) {
 
 	if len(article.Tags) != 2 {
 		t.Errorf("Expected article to have two tags, got '%d'", len(article.Tags))
+	}
+}
+
+func TestGetPublishedArticleByPath(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	username := os.Getenv("TEST_USERNAME")
+	slug := os.Getenv("TEST_PUBLISHED_ARTICLE_SLUG")
+
+	article, err := c.GetPublishedArticleByPath(username, slug)
+
+	if err != nil {
+		t.Errorf("Error fetching article: %s", err.Error())
+	}
+
+	if article.Slug != slug {
+		t.Errorf("Expected article slug to be '%s', got '%s'", slug, article.Slug)
+	}
+}
+
+func TestGetUserArticles(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articles, err := c.GetUserArticles(
+		ArticleQueryParams{
+			Page:    1,
+			PerPage: 2,
+		},
+	)
+
+	username := os.Getenv("TEST_USERNAME")
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	if len(articles) != 2 {
+		t.Errorf("Expected result to contain 2 articles, got %d", len(articles))
+	}
+
+	if articles[0].User.Username != username {
+		t.Error("Expected result to include articles for authenticated user")
 	}
 }
