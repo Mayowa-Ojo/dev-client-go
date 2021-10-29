@@ -1,6 +1,10 @@
 package dev
 
-import "testing"
+import (
+	"os"
+	"strconv"
+	"testing"
+)
 
 func TestGetPublishedListings(t *testing.T) {
 	c, err := NewTestClient()
@@ -28,6 +32,7 @@ func TestGetPublishedListings(t *testing.T) {
 	}
 }
 
+// NOTE: this test is failing
 func TestCreateListing(t *testing.T) {
 	c, err := NewTestClient()
 	if err != nil {
@@ -71,5 +76,29 @@ func TestGetPublishedListingsByCategory(t *testing.T) {
 		if v.Category != "cfp" {
 			t.Errorf("Expected catrgory to be 'cfp', instead got '%s'", v.Category)
 		}
+	}
+}
+
+func TestGetListingByID(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	listingID := os.Getenv("TEST_LISTING_ID")
+
+	listing, err := c.GetListingByID(listingID)
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	listingIDInt, err := strconv.Atoi(listingID)
+	if err != nil {
+		t.Errorf("Error converting listingID to int: %s", err.Error())
+	}
+
+	if listing.ID != int64(listingIDInt) {
+		t.Errorf("Expected result to be a listing with id: '%s', instead got '%d'", listingID, listing.ID)
 	}
 }
