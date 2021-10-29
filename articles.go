@@ -217,3 +217,46 @@ func (c *Client) UpdateArticle(articleID string, payload ArticleBodySchema, file
 
 	return article, nil
 }
+
+// GetPublishedArticleByPath allows the client to retrieve a single published
+// article given its path (slug)
+func (c *Client) GetPublishedArticleByPath(username, slug string) (*ArticleVariant, error) {
+	path := fmt.Sprintf("/articles/%s/%s", username, slug)
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	article := new(ArticleVariant)
+
+	if err := c.SendHttpRequest(req, &article); err != nil {
+		return nil, err
+	}
+
+	return article, nil
+}
+
+// GetUserArticles allows the client to retrieve a list of articles
+// on behalf of an authenticated user
+func (c *Client) GetUserArticles(q ArticleQueryParams) ([]Article, error) {
+	var articles []Article
+
+	query, err := query.Values(q)
+	if err != nil {
+		return nil, err
+	}
+
+	path := fmt.Sprintf("/articles/me?%s", query.Encode())
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := c.SendHttpRequest(req, &articles); err != nil {
+		return nil, err
+	}
+
+	return articles, nil
+}
