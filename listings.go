@@ -109,3 +109,27 @@ func (c *Client) CreateListing(payload ListingBodySchema, filepath interface{}) 
 
 	return listing, nil
 }
+
+// GetPublishedListingsByCategory allows the client to retrieve a list
+// of listings belonging to the given category
+func (c *Client) GetPublishedListingsByCategory(category string, q ListingQueryParams) ([]Listing, error) {
+	var listings []Listing
+
+	query, err := query.Values(q)
+	if err != nil {
+		return nil, err
+	}
+
+	path := fmt.Sprintf("/listings/category/%s?%s", category, query.Encode())
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := c.SendHttpRequest(req, &listings); err != nil {
+		return nil, err
+	}
+
+	return listings, nil
+}
