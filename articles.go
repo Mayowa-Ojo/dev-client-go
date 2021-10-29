@@ -13,6 +13,7 @@ type Article struct {
 	Title                  string              `json:"title"`
 	Description            string              `json:"description"`
 	CoverImage             string              `json:"cover_image,omitempty"`
+	Published              bool                `json:"published"`
 	ReadablePublishDate    string              `json:"readable_publish_date"`
 	SocialImage            string              `json:"social_image"`
 	BodyMarkdown           string              `json:"body_markdown"`
@@ -247,7 +248,55 @@ func (c *Client) GetUserArticles(q ArticleQueryParams) ([]Article, error) {
 		return nil, err
 	}
 
-	path := fmt.Sprintf("/articles/me?%s", query.Encode())
+	path := fmt.Sprintf("/articles/me/all?%s", query.Encode())
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := c.SendHttpRequest(req, &articles); err != nil {
+		return nil, err
+	}
+
+	return articles, nil
+}
+
+// GetUserArticles allows the client to retrieve a list of published
+// articles on behalf of an authenticated user
+func (c *Client) GetUserPublishedArticles(q ArticleQueryParams) ([]Article, error) {
+	var articles []Article
+
+	query, err := query.Values(q)
+	if err != nil {
+		return nil, err
+	}
+
+	path := fmt.Sprintf("/articles/me/published?%s", query.Encode())
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := c.SendHttpRequest(req, &articles); err != nil {
+		return nil, err
+	}
+
+	return articles, nil
+}
+
+// GetUserArticles allows the client to retrieve a list of unpublished
+// articles on behalf of an authenticated user
+func (c *Client) GetUserUnPublishedArticles(q ArticleQueryParams) ([]Article, error) {
+	var articles []Article
+
+	query, err := query.Values(q)
+	if err != nil {
+		return nil, err
+	}
+
+	path := fmt.Sprintf("/articles/me/unpublished?%s", query.Encode())
 
 	req, err := c.NewRequest(context.Background(), "GET", path, nil)
 	if err != nil {
