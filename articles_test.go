@@ -231,3 +231,63 @@ func TestGetUserArticles(t *testing.T) {
 		t.Error("Expected result to include articles for authenticated user")
 	}
 }
+
+func TestGetUserPublishedArticles(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articles, err := c.GetUserPublishedArticles(
+		ArticleQueryParams{
+			Page:    1,
+			PerPage: 5,
+		},
+	)
+
+	username := os.Getenv("TEST_USERNAME")
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	if articles[0].User.Username != username {
+		t.Error("Expected result to include articles for authenticated user")
+	}
+
+	for _, v := range articles {
+		if !v.Published {
+			t.Error("Expected result to contain published articles")
+		}
+	}
+}
+
+func TestGetUserUnPublishedArticles(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articles, err := c.GetUserUnPublishedArticles(
+		ArticleQueryParams{
+			Page:    1,
+			PerPage: 5,
+		},
+	)
+
+	username := os.Getenv("TEST_USERNAME")
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	if articles[0].User.Username != username {
+		t.Error("Expected result to include articles for authenticated user")
+	}
+
+	for _, v := range articles {
+		if v.Published {
+			t.Error("Expected result to contain unpublished articles")
+		}
+	}
+}
