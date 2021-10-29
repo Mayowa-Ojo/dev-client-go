@@ -133,3 +133,48 @@ func (c *Client) GetPublishedListingsByCategory(category string, q ListingQueryP
 
 	return listings, nil
 }
+
+// GetListingByID allows the client to retrieve a single listing given
+// its Id
+func (c *Client) GetListingByID(listingID string) (*Listing, error) {
+	path := fmt.Sprintf("/listings/%s", listingID)
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	listing := new(Listing)
+
+	if err := c.SendHttpRequest(req, &listing); err != nil {
+		return nil, err
+	}
+
+	return listing, nil
+}
+
+func (c *Client) UpdateListing(listingID string, payload ListingBodySchema, filepath interface{}) (*Listing, error) {
+	path := fmt.Sprintf("/listings/%s", listingID)
+
+	if filepath != nil {
+		content, err := ParseMarkdownFile(filepath.(string))
+		if err != nil {
+			return nil, err
+		}
+
+		payload.Listing.BodyMarkdown = content
+	}
+
+	req, err := c.NewRequest(context.Background(), "PUT", path, payload)
+	if err != nil {
+		return nil, err
+	}
+
+	listing := new(Listing)
+
+	if err := c.SendHttpRequest(req, &listing); err != nil {
+		return nil, err
+	}
+
+	return listing, nil
+}
