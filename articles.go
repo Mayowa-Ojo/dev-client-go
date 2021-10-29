@@ -39,6 +39,18 @@ type Article struct {
 	FlareTag               *ArticleFlareTag    `json:"flare_tag,omitempty"`
 }
 
+type VideoArticle struct {
+	TypeOf                 string `json:"type_of"`
+	ID                     int32  `json:"id"`
+	Path                   string `json:"path"`
+	CloudinaryVideoURL     string `json:"cloudinary_video_url"`
+	Title                  string `json:"title"`
+	UserID                 int32  `json:"user_id"`
+	VideoDurationInMinutes string `json:"video_duration_in_minutes"`
+	VideoSourceURL         string `json:"video_source_url"`
+	User                   *User  `json:"user"`
+}
+
 type SharedOrganization struct {
 	Name           string `json:"name"`
 	Username       string `json:"username"`
@@ -297,6 +309,30 @@ func (c *Client) GetUserUnPublishedArticles(q ArticleQueryParams) ([]Article, er
 	}
 
 	path := fmt.Sprintf("/articles/me/unpublished?%s", query.Encode())
+
+	req, err := c.NewRequest(context.Background(), "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := c.SendHttpRequest(req, &articles); err != nil {
+		return nil, err
+	}
+
+	return articles, nil
+}
+
+// GetArticlesWithVideo allows the client to retrieve a list of
+// articles that are uploaded with a video
+func (c *Client) GetArticlesWithVideo(q ArticleQueryParams) ([]VideoArticle, error) {
+	var articles []VideoArticle
+
+	query, err := query.Values(q)
+	if err != nil {
+		return nil, err
+	}
+
+	path := fmt.Sprintf("/videos?%s", query.Encode())
 
 	req, err := c.NewRequest(context.Background(), "GET", path, nil)
 	if err != nil {
