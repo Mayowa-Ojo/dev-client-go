@@ -49,3 +49,27 @@ func TestCreateListing(t *testing.T) {
 		t.Errorf("Expected 'type_of' field to be 'listing', got '%s'", listing.TypeOf)
 	}
 }
+
+func TestGetPublishedListingsByCategory(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	listings, err := c.GetPublishedListingsByCategory(
+		"cfp",
+		ListingQueryParams{
+			PerPage: 5,
+		},
+	)
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	for _, v := range listings {
+		if v.Category != "cfp" {
+			t.Errorf("Expected catrgory to be 'cfp', instead got '%s'", v.Category)
+		}
+	}
+}
