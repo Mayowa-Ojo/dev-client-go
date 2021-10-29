@@ -291,3 +291,27 @@ func TestGetUserUnPublishedArticles(t *testing.T) {
 		}
 	}
 }
+
+func TestGetArticlesWithVideo(t *testing.T) {
+	c, err := NewTestClient()
+	if err != nil {
+		t.Errorf("Failed to create TestClient: %s", err.Error())
+	}
+
+	articles, err := c.GetArticlesWithVideo(
+		ArticleQueryParams{
+			Page:    1,
+			PerPage: 5,
+		},
+	)
+
+	if err != nil {
+		t.Errorf("Error fetching articles: %s", err.Error())
+	}
+
+	for _, v := range articles {
+		if v.TypeOf != "video_article" {
+			t.Error("Expected result to include articles for authenticated user")
+		}
+	}
+}
