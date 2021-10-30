@@ -37,7 +37,7 @@ Articles are all the posts that users create on DEV that typically show up in th
 
 Example:
 
-Get published articles
+**Get published articles**
 
 query parameters gives you options to filter the results 
 ```go
@@ -57,9 +57,9 @@ fmt.Printf("Articles: \n%+v", articles)
 // ...
 ```
 
-Create an article
+**Create an article**
 
-you can pass the article content as string or as a markdown file by passing the `filepath` as a second parameter
+you can pass the article content as string by setting the `Article.Body` field, or as a markdown file by passing the `filepath` as a second parameter
 ```go
 // ...
 payload := dev.ArticleBodySchema{}
@@ -79,19 +79,19 @@ fmt.Printf("Article: \n%+v", article)
 #### Organizations [[API doc](https://developers.forem.com/api#tag/organizations)]
 Example:
 
-Get an organization
+**Get an organization**
 ```go
 // ...
-organization, err := c.GetOrganization(orgname)
+organization, err := client.GetOrganization(orgname)
 if err != nil {
    fmt.Println(err.Error())
 }
 
-fmt.Printf("Article: \n%+v", organization)
+fmt.Printf("Organization: \n%+v", organization)
 // ...
 ```
 
-Get users in an organization
+**Get users in an organization**
 ```go
 // ...
 users, err := client.GetOrganizationUsers(
@@ -106,6 +106,38 @@ if err != nil {
    fmt.Println(err.Error())
 }
 
-fmt.Printf("Article: \n%+v", organization)
+fmt.Printf("Users: \n%+v", users)
+// ...
+```
+
+#### Comments [[API doc](https://developers.forem.com/api#tag/comments)]
+Example:
+
+**Get comments for article/podcast**
+```go
+// ...
+comments, err := client.GetComments(
+   CommentQueryParams{
+      ArticleID: articleID,
+   },
+)
+
+if err != nil {
+   fmt.Println(err.Error())
+}
+
+fmt.Printf("Comments: \n%+v", comments)
+// ...
+```
+
+**Get a single comment**
+```go
+// ...
+comment, err := client.GetComment(commentID)
+if err != nil {
+   fmt.Println(err.Error())
+}
+
+fmt.Printf("Comment: \n%+v", comment)
 // ...
 ```
