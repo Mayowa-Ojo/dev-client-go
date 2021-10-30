@@ -80,12 +80,9 @@ func (c *Client) SendHttpRequest(r *http.Request, v interface{}) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		msg, err := extractDevError(resp)
-		if err != nil {
-			return err
-		}
+		err := extractDevError(resp)
 
-		return errors.New(msg)
+		return err
 	}
 
 	if v == nil {
