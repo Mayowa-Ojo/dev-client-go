@@ -8,18 +8,18 @@ import (
 )
 
 type Listing struct {
-	TypeOf        string              `json:"type_of"`
-	ID            int64               `json:"id"`
-	Title         string              `json:"title"`
-	Slug          string              `json:"slug"`
-	BodyMarkdown  string              `json:"body_markdown"`
-	TagList       string              `json:"tag_list"`
-	Tags          []string            `json:"tags"`
-	Category      ListingCategory     `json:"category"`
-	ProcessedHTML string              `json:"processed_html"`
-	Published     bool                `json:"published"`
-	User          *User               `json:"user"`
-	Organization  *SharedOrganization `json:"organization"`
+	TypeOf        string          `json:"type_of"`
+	ID            int64           `json:"id"`
+	Title         string          `json:"title"`
+	Slug          string          `json:"slug"`
+	BodyMarkdown  string          `json:"body_markdown"`
+	TagList       string          `json:"tag_list"`
+	Tags          []string        `json:"tags"`
+	Category      ListingCategory `json:"category"`
+	ProcessedHTML string          `json:"processed_html"`
+	Published     bool            `json:"published"`
+	User          *User           `json:"user"`
+	Organization  *Organization   `json:"organization"`
 }
 
 type ListingBodySchema struct {
@@ -33,7 +33,7 @@ type ListingBodySchema struct {
 		ContactViaConnect bool            `json:"contact_via_connect"`
 		Location          string          `json:"location"`
 		OrganizationID    int64           `json:"organization_id"`
-		Action            string          `json:"action"`
+		Action            Action          `json:"action"`
 	} `json:"listing"`
 }
 
@@ -51,6 +51,14 @@ const (
 	Forsale   ListingCategory = "forsale"
 	Events    ListingCategory = "events"
 	Misc      ListingCategory = "misc"
+)
+
+type Action string
+
+const (
+	Bump      Action = "bump"
+	Publish   Action = "publish"
+	Unpublish Action = "unpublish"
 )
 
 type ListingQueryParams struct {
@@ -88,7 +96,7 @@ func (c *Client) CreateListing(payload ListingBodySchema, filepath interface{}) 
 	path := "/listings"
 
 	if filepath != nil {
-		content, err := ParseMarkdownFile(filepath.(string))
+		content, err := parseMarkdownFile(filepath.(string))
 		if err != nil {
 			return nil, err
 		}
@@ -157,7 +165,7 @@ func (c *Client) UpdateListing(listingID string, payload ListingBodySchema, file
 	path := fmt.Sprintf("/listings/%s", listingID)
 
 	if filepath != nil {
-		content, err := ParseMarkdownFile(filepath.(string))
+		content, err := parseMarkdownFile(filepath.(string))
 		if err != nil {
 			return nil, err
 		}
