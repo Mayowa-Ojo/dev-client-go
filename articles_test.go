@@ -115,8 +115,8 @@ func TestGetPublishedArticlesSorted(t *testing.T) {
 		t.Errorf("Error fetching articles: %s", err.Error())
 	}
 
-	t1, _ := ParseUTCDate(articles[0].PublishedAt)
-	t2, err := ParseUTCDate(articles[1].PublishedAt)
+	t1, _ := parseUTCDate(articles[0].PublishedAt)
+	t2, err := parseUTCDate(articles[1].PublishedAt)
 	if err != nil {
 		t.Errorf("Error parsing UTC date: %v", err.Error())
 	}
