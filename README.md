@@ -1,6 +1,6 @@
 ## Dev-Client-Go
 
-dev-api-go is a client library for the Forem (dev.to) [developer api](https://developers.forem.com/api) written in Go. It provides fully typed methods for every operation you can carry out with the current api (beta)(0.9.7)
+**dev-api-go** is a client library for the Forem (dev.to) [developer api](https://developers.forem.com/api) written in Go. It provides fully typed methods for every operation you can carry out with the current api (beta)(0.9.7)
 
 ### Installation
 > Go version >= 1.13
@@ -31,5 +31,22 @@ func main() {
 ### Documentation
 Examples on basic usage for some of the operations you can carry out.
 
-#### Articles
-[API doc](https://developers.forem.com/api#tag/articles)
+#### Articles [[API doc](https://developers.forem.com/api#tag/articles)]
+Articles are all the posts that users create on DEV that typically show up in the feed.
+Example:
+```go
+// ...
+// fetch 10 published articles
+articles, err := client.GetPublishedArticles(
+   dev.ArticleQueryParams{
+      PerPage: 10
+   }
+)
+
+if err != nil {
+   fmt.Println(err.Error())
+}
+
+fmt.Printf("Articles: \n%+v", articles)
+// ...
+```
