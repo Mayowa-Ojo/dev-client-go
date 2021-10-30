@@ -8,35 +8,35 @@ import (
 )
 
 type Article struct {
-	TypeOf                 string              `json:"type_of"`
-	ID                     int32               `json:"id"`
-	Title                  string              `json:"title"`
-	Description            string              `json:"description"`
-	CoverImage             string              `json:"cover_image,omitempty"`
-	Published              bool                `json:"published"`
-	ReadablePublishDate    string              `json:"readable_publish_date"`
-	SocialImage            string              `json:"social_image"`
-	BodyMarkdown           string              `json:"body_markdown"`
-	BodyHTML               string              `json:"body_html"`
-	TagList                []string            `json:"tag_list"`
-	Tags                   string              `json:"tags"`
-	Slug                   string              `json:"slug"`
-	Path                   string              `json:"path"`
-	URL                    string              `json:"url"`
-	CanonicalURL           string              `json:"canonical_url"`
-	CommentsCount          int32               `json:"comments_count"`
-	PositiveReactionsCount int32               `json:"positive_reactions_count"`
-	PublicReactionsCount   int32               `json:"public_reactions_count"`
-	CreatedAt              string              `json:"created_at"`
-	EditedAt               string              `json:"edited_at,omitempty"`
-	CrosspostedAt          string              `json:"crossposted_at,omitempty"`
-	PublishedAt            string              `json:"published_at"`
-	LastCommentAt          string              `json:"last_comment_at"`
-	PublishedTimestamp     string              `json:"published_timestamp"`
-	User                   *User               `json:"user"`
-	ReadingTimeMinutes     int32               `json:"reading_time_minutes"`
-	Organization           *SharedOrganization `json:"organization,omitempty"`
-	FlareTag               *ArticleFlareTag    `json:"flare_tag,omitempty"`
+	TypeOf                 string           `json:"type_of"`
+	ID                     int32            `json:"id"`
+	Title                  string           `json:"title"`
+	Description            string           `json:"description"`
+	CoverImage             string           `json:"cover_image,omitempty"`
+	Published              bool             `json:"published"`
+	ReadablePublishDate    string           `json:"readable_publish_date"`
+	SocialImage            string           `json:"social_image"`
+	BodyMarkdown           string           `json:"body_markdown"`
+	BodyHTML               string           `json:"body_html"`
+	TagList                []string         `json:"tag_list"`
+	Tags                   string           `json:"tags"`
+	Slug                   string           `json:"slug"`
+	Path                   string           `json:"path"`
+	URL                    string           `json:"url"`
+	CanonicalURL           string           `json:"canonical_url"`
+	CommentsCount          int32            `json:"comments_count"`
+	PositiveReactionsCount int32            `json:"positive_reactions_count"`
+	PublicReactionsCount   int32            `json:"public_reactions_count"`
+	CreatedAt              string           `json:"created_at"`
+	EditedAt               string           `json:"edited_at,omitempty"`
+	CrosspostedAt          string           `json:"crossposted_at,omitempty"`
+	PublishedAt            string           `json:"published_at"`
+	LastCommentAt          string           `json:"last_comment_at"`
+	PublishedTimestamp     string           `json:"published_timestamp"`
+	User                   *User            `json:"user"`
+	ReadingTimeMinutes     int32            `json:"reading_time_minutes"`
+	Organization           *Organization    `json:"organization,omitempty"`
+	FlareTag               *ArticleFlareTag `json:"flare_tag,omitempty"`
 }
 
 type VideoArticle struct {
@@ -49,14 +49,6 @@ type VideoArticle struct {
 	VideoDurationInMinutes string `json:"video_duration_in_minutes"`
 	VideoSourceURL         string `json:"video_source_url"`
 	User                   *User  `json:"user"`
-}
-
-type SharedOrganization struct {
-	Name           string `json:"name"`
-	Username       string `json:"username"`
-	Slug           string `json:"slug"`
-	ProfileImage   string `json:"profile_image"`
-	ProfileImage90 string `json:"profile_image_90"`
 }
 
 type ArticleFlareTag struct {
@@ -138,7 +130,7 @@ func (c *Client) CreateArticle(payload ArticleBodySchema, filepath interface{}) 
 	path := "/articles"
 
 	if filepath != nil {
-		content, err := ParseMarkdownFile(filepath.(string))
+		content, err := parseMarkdownFile(filepath.(string))
 		if err != nil {
 			return nil, err
 		}
@@ -209,7 +201,7 @@ func (c *Client) UpdateArticle(articleID string, payload ArticleBodySchema, file
 	path := fmt.Sprintf("/articles/%s", articleID)
 
 	if filepath != nil {
-		content, err := ParseMarkdownFile(filepath.(string))
+		content, err := parseMarkdownFile(filepath.(string))
 		if err != nil {
 			return nil, err
 		}
