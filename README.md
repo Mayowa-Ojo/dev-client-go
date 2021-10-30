@@ -1,5 +1,5 @@
 ## Dev-Client-Go
---
+==
 
 dev-api-go is a client library for the Forem (dev.to) [developer api](https://developers.forem.com/api) written in Go. It provides fully typed methods for every operation you can carry out with the current api (beta)(0.9.7)
 
@@ -27,7 +27,7 @@ func main() {
 }
 ```
 
--
+==
 ### Documentation
 Examples on basic usage for some of the operations you can carry out.
 
