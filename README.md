@@ -44,7 +44,7 @@ query parameters gives you options to filter the results
 // ...
 // fetch 10 published articles
 articles, err := client.GetPublishedArticles(
-   dev.ArticleQueryParams{
+   dev.ArticleQueryParams {
       PerPage: 10
    }
 )
@@ -96,7 +96,7 @@ fmt.Printf("Organization: \n%+v", organization)
 // ...
 users, err := client.GetOrganizationUsers(
    orgname,
-   OrganizationQueryParams{
+   dev.OrganizationQueryParams {
       Page:    1,
       PerPage: 5,
    },
@@ -117,7 +117,7 @@ Example:
 ```go
 // ...
 comments, err := client.GetComments(
-   CommentQueryParams{
+   dev.CommentQueryParams {
       ArticleID: articleID,
    },
 )
@@ -139,5 +139,38 @@ if err != nil {
 }
 
 fmt.Printf("Comment: \n%+v", comment)
+// ...
+```
+
+#### Comments [[API doc](https://developers.forem.com/api#tag/listings)]
+Example:
+
+**Get published listings**
+```go
+// ...
+listings, err := client.GetPublishedListings(
+   dev.ListingQueryParams {
+      PerPage:  5,
+      Category: "cfp",
+   },
+)
+
+if err != nil {
+   fmt.Println(err.Error())
+}
+
+fmt.Printf("Listings: \n%+v", listings)
+// ...
+```
+
+**Get a single listing**
+```go
+// ...
+listing, err := client.GetListingByID(listingID)
+if err != nil {
+   fmt.Println(err.Error())
+}
+
+fmt.Printf("Listings: \n%+v", listings)
 // ...
 ```
