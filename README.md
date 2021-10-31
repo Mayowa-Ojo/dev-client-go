@@ -180,7 +180,7 @@ fmt.Printf("Listings: \n%+v", listings)
 ### API methods
 Here's a list of all methods matching every operation currently supported. Clicking them will also take you to the location in the test file to see usage examples.
 
-[**Articles**]
+**[Articles]**
 
 - [x] [GetPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L11)
 
@@ -202,3 +202,48 @@ Here's a list of all methods matching every operation currently supported. Click
 
 - [x] [GetArticlesWithVideo](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L295)
 
+**[Comments]**
+
+- [x] [GetComments](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/comments_test.go#L5)
+- [x] [GetComment](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/comments_test.go#L26)
+
+**[Listings]**
+
+- [x] [GetPublishedListings](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/listings_test.go#L9)
+- [x] [CreateListing](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/listings_test.go#L36)
+- [x] [GetPublishedListingsByCategory](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/listings_test.go#L58)
+- [x] [GetListingByID](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/listings_test.go#L82)
+
+**[Organizations]**
+
+- [x] [GetOrganization](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/organizations_test.go#L8)
+- [x] [GetOrganizationUsers](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/organizations_test.go#L27)
+- [x] [GetOrganizationListings](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/organizations_test.go#L54)
+- [x] [GetOrganizationArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/organizations_test.go#L81)
+
+**[Podcasts]**
+
+- [x] [GetPublishedPodcastEpisodes](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/podcasts_test.go#L8)
+
+**[ProfileImage]**
+
+- [x] [GetProfileImage](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/profile_image_test.go#L8)
+
+**[Tags]**
+
+- [x] [GetFollowedTags](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/tags_test.go#L7)
+
+**[Users]**
+
+- [x] [GetUserByID](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/users_test.go#L9)
+- [x] [GetUserByUsername](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/users_test.go#L34)
+- [x] [GetAuthenticatedUser](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/users_test.go#L57)
+- [x] [GetUserReadingList](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/users_test.go#L76)
+- [x] [GetUserFollowers](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/users_test.go#L99)
+
+**[Webhooks]**
+
+- [x] [GetWebhooks](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/webhooks_test.go#L9)
+- [x] [CreateWebhook](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/webhooks_test.go#L28)
+- [x] [GetWebhookByID](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/webhooks_test.go#L55)
+- [x] [DeleteWebhook](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/webhooks_test.go#L83)
