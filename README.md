@@ -181,23 +181,24 @@ fmt.Printf("Listings: \n%+v", listings)
 Here's a list of all methods matching every operation currently supported. Clicking them will also take you to the location in the test file to see usage examples.
 
 [**Articles**]
-[x] [GetPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L11)
 
-[x] [CreateArticle](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L75)
+- [x] [GetPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L11)
 
-[x] [GetPublishedArticlesSorted](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L101)
+- [x] [CreateArticle](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L75)
 
-[x] [GetPublishedArticleByID](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L131)
+- [x] [GetPublishedArticlesSorted](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L101)
 
-[x] [UpdateArticle](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L156)
+- [x] [GetPublishedArticleByID](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L131)
 
-[x] [GetPublishedArticleByPath](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L187)
+- [x] [UpdateArticle](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L156)
 
-[x] [GetUserArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L207)
+- [x] [GetPublishedArticleByPath](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L187)
 
-[x] [GetUserPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L235)
+- [x] [GetUserArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L207)
 
-[x] [GetUserUnPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L265)
+- [x] [GetUserPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L235)
 
-[x] [GetArticlesWithVideo](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L295)
+- [x] [GetUserUnPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L265)
+
+- [x] [GetArticlesWithVideo](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L295)
 
