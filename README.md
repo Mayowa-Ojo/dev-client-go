@@ -174,3 +174,18 @@ if err != nil {
 fmt.Printf("Listings: \n%+v", listings)
 // ...
 ```
+
+<hr style="border:1px solid gray"> </hr>
+
+### API methods
+Here's a list of all methods matching every operation currently supported.
+- [GetPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L11)
+- [TestCreateArticle](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L75)
+- [GetPublishedArticlesSorted](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L101)
+- [GetPublishedArticleByID](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L131)
+- [UpdateArticle](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L156)
+- [GetPublishedArticleByPath](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L187)
+- [GetUserArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L207)
+- [GetUserPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L235)
+- [GetUserUnPublishedArticles](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L265)
+- [GetArticlesWithVideo](https://github.com/Mayowa-Ojo/dev-client-go/blob/main/articles_test.go#L295)
