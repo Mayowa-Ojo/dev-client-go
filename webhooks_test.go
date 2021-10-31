@@ -26,6 +26,7 @@ func TestGetWebhooks(t *testing.T) {
 }
 
 func TestCreateWebhook(t *testing.T) {
+	t.Skip()
 	c, err := NewTestClient()
 	if err != nil {
 		t.Errorf("Failed to create TestClient: %s", err.Error())
@@ -40,7 +41,7 @@ func TestCreateWebhook(t *testing.T) {
 
 	webhook, err := c.CreateWebhook(payload)
 	if err != nil {
-		t.Errorf("Error trying to create article: %s", err.Error())
+		t.Errorf("Error trying to create webhook: %s", err.Error())
 	}
 
 	if webhook.TypeOf != "webhook_endpoint" {

@@ -13,7 +13,7 @@ func TestGetFollowedTags(t *testing.T) {
 	tags, err := c.GetFollowedTags()
 
 	if err != nil {
-		t.Errorf("Error fetching podcasts: %s", err.Error())
+		t.Errorf("Error fetching tags: %s", err.Error())
 	}
 
 	if len(tags) < 1 {
