@@ -62,9 +62,9 @@ const (
 )
 
 type ListingQueryParams struct {
-	Page     int32  `json:"page"`
-	PerPage  int32  `json:"per_page"`
-	Category string `json:"category"`
+	Page     int32  `url:"page"`
+	PerPage  int32  `url:"per_page"`
+	Category string `url:"category"`
 }
 
 // GetPublishedListings allows the client retrieve a list of listings
