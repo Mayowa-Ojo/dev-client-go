@@ -16,7 +16,7 @@ func TestGetPublishedPodcastEpisodes(t *testing.T) {
 	podcasts, err := c.GetPublishedPodcastEpisodes(
 		PodcastQueryParams{
 			PerPage:  5,
-			Username: "podrocket",
+			Username: podcastSlug,
 		},
 	)
 
@@ -24,11 +24,11 @@ func TestGetPublishedPodcastEpisodes(t *testing.T) {
 		t.Errorf("Error fetching podcasts: %s", err.Error())
 	}
 
-	want := "podcast_episodes"
+	expected := "podcast_episodes"
 
 	for _, v := range podcasts {
-		if v.TypeOf != want {
-			t.Errorf("Expected 'type_of' field to be '%s', instead got '%s'", want, v.TypeOf)
+		if v.TypeOf != expected {
+			t.Errorf("Expected 'type_of' field to be '%s', instead got '%s'", expected, v.TypeOf)
 		}
 
 		if v.Podcast.Slug != podcastSlug {

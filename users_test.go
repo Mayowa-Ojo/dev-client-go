@@ -20,14 +20,14 @@ func TestGetUserByID(t *testing.T) {
 		t.Errorf("Error fetching user: %s", err.Error())
 	}
 
-	want, err := strconv.Atoi(userID)
+	expected, err := strconv.Atoi(userID)
 	if err != nil {
 		t.Errorf("Error converting string to int: %s", err.Error())
 	}
 	got := user.ID
 
-	if int32(want) != got {
-		t.Errorf("Expected 'id' field to be '%d', instead got '%d'", want, got)
+	if int32(expected) != got {
+		t.Errorf("Expected 'id' field to be '%d', instead got '%d'", expected, got)
 	}
 }
 

@@ -134,7 +134,7 @@ func TestGetPublishedArticleByID(t *testing.T) {
 		t.Errorf("Failed to create TestClient: %s", err.Error())
 	}
 
-	articleID := "866987"
+	articleID := os.Getenv("TEST_ARTICLE_ID")
 
 	article, err := c.GetPublishedArticleByID(articleID)
 

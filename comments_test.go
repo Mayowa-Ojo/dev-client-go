@@ -1,6 +1,9 @@
 package dev
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 func TestGetComments(t *testing.T) {
 	c, err := NewTestClient()
@@ -29,7 +32,7 @@ func TestGetComment(t *testing.T) {
 		t.Errorf("Failed to create TestClient: %s", err.Error())
 	}
 
-	commentID := "1f87e"
+	commentID := os.Getenv("TEST_COMMENT_ID")
 
 	comment, err := c.GetComment(commentID)
 	if err != nil {

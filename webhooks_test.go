@@ -70,13 +70,13 @@ func TestGetWebhookByID(t *testing.T) {
 		t.Errorf("Expected 'type_of' field to be 'webhook_endpoint', instead got '%s'", webhook.TypeOf)
 	}
 
-	want, err := strconv.Atoi(webhookID)
+	expected, err := strconv.Atoi(webhookID)
 	if err != nil {
 		t.Errorf("Error converting string to int: %s", err.Error())
 	}
 
-	if webhook.ID != int64(want) {
-		t.Errorf("Expected webhook id to be '%d', instead got '%d'", want, webhook.ID)
+	if webhook.ID != int64(expected) {
+		t.Errorf("Expected webhook id to be '%d', instead got '%d'", expected, webhook.ID)
 	}
 }
 
