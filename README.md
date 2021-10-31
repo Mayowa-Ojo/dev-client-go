@@ -44,7 +44,7 @@ query parameters gives you options to filter the results
 // ...
 // fetch 10 published articles
 articles, err := client.GetPublishedArticles(
-   dev.ArticleQueryParams {
+   dev.ArticleQueryParams{
       PerPage: 10
    }
 )
@@ -96,7 +96,7 @@ fmt.Printf("Organization: \n%+v", organization)
 // ...
 users, err := client.GetOrganizationUsers(
    orgname,
-   dev.OrganizationQueryParams {
+   dev.OrganizationQueryParams{
       Page:    1,
       PerPage: 5,
    },
@@ -117,7 +117,7 @@ Example:
 ```go
 // ...
 comments, err := client.GetComments(
-   dev.CommentQueryParams {
+   dev.CommentQueryParams{
       ArticleID: articleID,
    },
 )
@@ -142,14 +142,14 @@ fmt.Printf("Comment: \n%+v", comment)
 // ...
 ```
 
-#### Comments [[API doc](https://developers.forem.com/api#tag/listings)]
+#### Listings [[API doc](https://developers.forem.com/api#tag/listings)]
 Example:
 
 **Get published listings**
 ```go
 // ...
 listings, err := client.GetPublishedListings(
-   dev.ListingQueryParams {
+   dev.ListingQueryParams{
       PerPage:  5,
       Category: "cfp",
    },
