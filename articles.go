@@ -83,9 +83,9 @@ type ArticleBodySchema struct {
 type State string
 
 const (
-	Fresh  State = "fresh"
-	Rising State = "rising"
-	All    State = "all"
+	Fresh  = State("fresh")
+	Rising = State("rising")
+	All    = State("all")
 )
 
 type ArticleQueryParams struct {

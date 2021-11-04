@@ -43,7 +43,7 @@ func TestCreateListing(t *testing.T) {
 	payload := ListingBodySchema{}
 	payload.Listing.Title = "ACME Conference"
 	payload.Listing.BodyMarkdown = "Awesome conference, come join us!"
-	payload.Listing.Category = "cfp"
+	payload.Listing.Category = ListingCategoryCfp
 	payload.Listing.Tags = []string{"events"}
 
 	listing, err := c.CreateListing(payload, nil)

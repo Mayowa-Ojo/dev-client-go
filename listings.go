@@ -40,25 +40,25 @@ type ListingBodySchema struct {
 type ListingCategory string
 
 const (
-	Cfp       ListingCategory = "cfp"
-	Forhire   ListingCategory = "forhire"
-	Collabs   ListingCategory = "collabs"
-	Education ListingCategory = "education"
-	Jobs      ListingCategory = "jobs"
-	Mentors   ListingCategory = "mentors"
-	Products  ListingCategory = "products"
-	Mentees   ListingCategory = "mentees"
-	Forsale   ListingCategory = "forsale"
-	Events    ListingCategory = "events"
-	Misc      ListingCategory = "misc"
+	ListingCategoryCfp       = ListingCategory("cfp")
+	ListingCategoryForhire   = ListingCategory("forhire")
+	ListingCategoryCollabs   = ListingCategory("collabs")
+	ListingCategoryEducation = ListingCategory("education")
+	ListingCategoryJobs      = ListingCategory("jobs")
+	ListingCategoryMentors   = ListingCategory("mentors")
+	ListingCategoryProducts  = ListingCategory("products")
+	ListingCategoryMentees   = ListingCategory("mentees")
+	ListingCategoryForsale   = ListingCategory("forsale")
+	ListingCategoryEvents    = ListingCategory("events")
+	ListingCategoryMisc      = ListingCategory("misc")
 )
 
 type Action string
 
 const (
-	Bump      Action = "bump"
-	Publish   Action = "publish"
-	Unpublish Action = "unpublish"
+	Bump      = Action("bump")
+	Publish   = Action("publish")
+	Unpublish = Action("unpublish")
 )
 
 type ListingQueryParams struct {
